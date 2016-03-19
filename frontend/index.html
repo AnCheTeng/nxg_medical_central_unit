@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>NXG Medical Cloud Central Unit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <!-- Le styles -->
+  <!-- TODO: make sure bootstrap.min.css points to BootTheme generated file
+        -->
+  <link href="lib/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <style type="text/css">
+    body {
+      padding-top: 60px;
+      padding-bottom: 40px;
+    }
+  </style>
+  <!-- TODO: make sure bootstrap-responsive.min.css points to BootTheme
+        generated file -->
+  <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-responsive.min.css" rel="stylesheet">
+  <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+  <!-- Fav and touch icons -->
+  <link rel="shortcut icon" href="../assets/ico/favicon.ico">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+  <link href='css/main.css' rel='stylesheet'>
+</head>
+
+<body>
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container-fluid">
+        <a class="btn btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+
+        </a>
+        <a class="brand" href="#">NXG Medical Cloud Central Unit</a>
+        <div class="nav-collapse collapse" style="height: 0px;">
+          <ul class="nav">
+            <li>
+              <a href="#">Home</a>
+            </li>
+            <li>
+              <a href="#patient">Patient</a>
+            </li>
+            <li>
+              <a href="#blood">Blood</a>
+            </li>
+          </ul>
+        </div>
+        <!--/.nav-collapse -->
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <!-- Main hero unit for a primary marketing message or call to action-->
+    <div class="hero-unit patient" id="patient">
+      <h1>ICU-Sickbed Info.&nbsp;</h1>
+      <br></br>
+      <p class="p1">臺大醫院之加護病床床位剩餘5，還可接受需要加護病房之病患。</p>
+      <p class="p1">亞東醫院之加護病床床位剩餘5，還可接受需要加護病房之病患。</p>
+      <p class="p1">長庚醫院之加護病床床位剩餘5，還可接受需要加護病房之病患。</p>
+    </div>
+
+    <div class="hero-unit blood" id="blood">
+      <h1>O Blood Type Info.</h1>
+      <br></br>
+      <p class="p1">臺大醫院之O型血量庫存為100，已低於50%，請從鄰近醫院補充。</p>
+      <p class="p1">亞東醫院之O型血量庫存為300，可供給其他醫院進行協助。</p>
+      <p class="p1">長庚醫院之O型血量庫存為300，可供給其他醫院進行協助。</p>
+    </div>
+
+    <div class="row-fluid">
+      <div class="span8">
+        <div class="hero-unit">
+          <h2>Hospital List</h2>
+          <p>臺大醫院，<span style="color: inherit;">亞東醫院，</span><span style="color: inherit;">長庚醫院</span></p>
+        </div>
+      </div>
+      <div class="span4" align="center">
+        <h2 style="margin-top: 25px">Private IP Addr</h2>
+        <input type="password" class="input-small span12" style="margin-top: 20px">
+        <button class="btn btn-success btn-large" style="margin-top: 20px">Loading</button>
+      </div>
+    </div>
+
+    <hr>
+
+    <footer>
+      <p class="">© NXG Medical Cloud - OpenStack Hackathon 2016</p>
+    </footer>
+
+  </div>
+
+  <!-- /container -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+  <script src='js/main.js'></script>
+</body>
+
+</html>
