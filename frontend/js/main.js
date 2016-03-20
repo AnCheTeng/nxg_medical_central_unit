@@ -14,11 +14,18 @@ $(document).ready(function() {
       $("#hospital_list").text(hospital_list);
     });
 
-    // $.get(renew_api, ()=>{});
-    //
-    // $.get(analysis_api, (response)=>{
-    //
-    // });
+    $.get(renew_api, ()=>{});
+
+    $.get(analysis_api, (response)=>{
+
+      $("#bloodA").text(response.blood[0]);
+      $("#bloodB").text(response.blood[1]);
+      $("#bloodC").text(response.blood[2]);
+      $("#bedA").text(response.patient[0]);
+      $("#bedB").text(response.patient[1]);
+      $("#bedC").text(response.patient[2]);
+
+    });
 
   }, 1000);
 
@@ -29,7 +36,7 @@ $(document).ready(function() {
     // API: load/value
     var complete_api = "/hospitalvm/load/" + value
     console.log(complete_api);
-    // $.get(complete_api, ()=>{});
+    $.get(complete_api, ()=>{});
 
   });
 

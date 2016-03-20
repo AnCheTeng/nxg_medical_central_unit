@@ -72,72 +72,78 @@ router.route('/analysis')
       patient: [],
     };
     HospitalVM.find().exec(function(err, VMlist){
-      console.log(VMlist);
+      // console.log(VMlist);
       for (var i=0, length=VMlist.length; i<length; i++) {
         var complete_url="http://"+VMlist[i].IP+":8080/blood/number/O"
-        console.log(complete_url);
-        console.log(VMlist[i].name);
+        // console.log(complete_url);
+        // console.log(VMlist[i].name);
         var hopname = VMlist[i].name;
         // Blood
-        iprequest.get({
-          url:complete_url
-        }, function(err, res, body){
-          body = JSON.parse(body);
-          console.log(body.number);
-          if(body.number<150) {
-            console.log(hopname+"之O型血量庫存為"+body.number+"，已低於50%，請從鄰近醫院補充。");
-            temparray.blood.push(hopname+"之O型血量庫存為"+body.number+"，已低於50%，請從鄰近醫院補充。");
-          } else {
-            console.log(hopname+"之O型血量庫存為"+body.number+"，可供給其他醫院進行協助。");
-            temparray.blood.push(hopname+"之O型血量庫存為"+body.number+"，可供給其他醫院進行協助。");
-          }
+        var bloodClosure = (function(hopname, tempURL){
+          iprequest.get({
+            url:tempURL
+          }, function(err, res, body){
+            body = JSON.parse(body);
+            // console.log(body.number);
+            if(body.number<150) {
+              // console.log(hopname+"之O型血量庫存為"+body.number+"，已低於50%，請從鄰近醫院補充。");
+              temparray.blood.push(hopname+"之O型血量庫存為"+body.number+"，已低於50%，請從鄰近醫院補充。");
+            } else {
+              // console.log(hopname+"之O型血量庫存為"+body.number+"，可供給其他醫院進行協助。");
+              temparray.blood.push(hopname+"之O型血量庫存為"+body.number+"，可供給其他醫院進行協助。");
+            }
 
-          if(temparray.blood.length==3 && temparray.patient.length==3){
-            respopnse.send(temparray);
-          }
-        });
+            if(temparray.blood.length==3 && temparray.patient.length==3){
+              response.send(temparray);
+            }
+          });
+        })(VMlist[i].name, complete_url);
+
       }
 
       for (var i=0, length=VMlist.length; i<length; i++) {
         var complete_url="http://"+VMlist[i].IP+":8080/sickbed/number/ICU"
-        console.log(complete_url);
-        console.log(VMlist[i].name);
-        var hostname = VMlist[i].name;
-        // Blood
-        iprequest.get({
-          url:complete_url
-        }, function(err, res, body){
-          body = JSON.parse(body);
-          console.log(body.number);
-          if(body.number<2) {
-            console.log("緊急！！！！"+hostname+"之加護病床床位剩餘"+body.number+"床，為數不多，請勿再送病患進來！")
-            temparray.patient.push("緊急！！！！"+hostname+"之加護病床床位剩餘"+body.number+"床，為數不多，請勿再送病患進來！");
-          } else {
-            console.log(hostname+"之加護病床床位剩餘"+body.number+"，還可接受需要加護病房之病患。");
-            temparray.patient.push(hostname+"之加護病床床位剩餘"+body.number+"，還可接受需要加護病房之病患。");
-          }
+        // console.log(complete_url);
+        // console.log(VMlist[i].name);
+        // Sickbed
+        var sickbedClosure = (function(hostname, tempURL){
+          iprequest.get({
+            url:tempURL
+          }, function(err, res, body){
+            body = JSON.parse(body);
+            // console.log(body.number);
+            if(body.number<2) {
+              // console.log("緊急！！！！"+hostname+"之加護病床床位剩餘"+body.number+"床，為數不多，請勿再送病患進來！")
+              temparray.patient.push("緊急！！！！"+hostname+"之加護病床床位剩餘"+body.number+"床，為數不多，請勿再送病患進來！");
+            } else {
+              // console.log(hostname+"之加護病床床位剩餘"+body.number+"，還可接受需要加護病房之病患。");
+              temparray.patient.push(hostname+"之加護病床床位剩餘"+body.number+"，還可接受需要加護病房之病患。");
+            }
 
-          if(temparray.blood.length==3 && temparray.patient.length==3){
-            respopnse.send(temparray);
-          }
-
-        });
+            if(temparray.blood.length==3 && temparray.patient.length==3){
+              response.send(temparray);
+            }
+          });
+        })(VMlist[i].name, complete_url);
       }
     });
   });
 
 router.route('/renew')
   .get(parseUrlencoded, function(request, response) {
-    HospitalVM.find().exec(function(vmlist){
+    HospitalVM.find().exec(function(err, vmlist){
+
       for (var i=0, leng=vmlist.length; i<leng; i++) {
         var complete_url="http://"+vmlist[i].IP+":8080/physical";
-        iprequest.get({
-          url:complete_url
-        }, function(err, res, body){
-          body = JSON.parse(body);
-          vmlist[i].name = body.name;
-          vmlist[i].save();
-        });
+        var tmpClosure = (function(vm_temp, url_temp){
+          iprequest.get({
+            url:url_temp
+          }, function(err, res, body){
+            body = JSON.parse(body);
+            vm_temp.name = body.name;
+            vm_temp.save();
+          });
+        })(vmlist[i], complete_url);
       }
       response.end();
     });
